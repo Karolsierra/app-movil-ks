@@ -67,7 +67,7 @@ const LoginScreen = () => {
                 <View style={styles.inputWrapper}>
                   <TextInput
                     style={styles.input}
-                    placeholder="Ingrese su correo aquí"
+                    placeholder="Ingrese su correo electronico"
                     value={email}
                     onChangeText={setEmail}
                     autoCapitalize="none"
@@ -82,7 +82,7 @@ const LoginScreen = () => {
                   <View style={styles.inputWrapper}>
                     <TextInput
                       style={styles.input}
-                      placeholder="Ingrese su contraseña aquí"
+                      placeholder="Ingrese su contraseña"
                       value={password}
                       onChangeText={setPassword}
                       secureTextEntry={!passwordVisible}
@@ -99,9 +99,6 @@ const LoginScreen = () => {
                 </View>
               </View>
               <View style={styles.rememberForgot}>
-                <Pressable style={styles.rememberMe}>
-                  <Text style={styles.rememberMeText}>Recordar contraseña</Text>
-                </Pressable>
                 <Pressable>
                   <Text style={styles.forgotPassword}>¿Olvidó su contraseña?</Text>
                 </Pressable>
@@ -133,7 +130,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F8F8F8',
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -211,7 +208,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   loginButton: {
-    backgroundColor: 'black',
+    backgroundColor: '#4CAF50',
     paddingVertical: 15,
     borderRadius: 5,
     width: '100%',
@@ -234,16 +231,12 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   registerText: {
-    color: 'black',
+    color: '#4CAF50',
     fontWeight: 'bold',
     fontSize: 16,
   },
   footer: {
-    width: '100%',
-    backgroundColor: '#f8f8f8',
-    padding: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 20,
   },
 });
 

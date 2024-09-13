@@ -13,44 +13,21 @@ const App = () => {
         <Header />
         <ScrollView contentContainerStyle={styles.contentWrapper}>
           <View style={styles.mainContent}>
-            <Text style={styles.welcomeText}>Bienvenido Cliente!</Text>
+            <Text style={styles.welcomeText}>Bienestar al Aprendiz</Text>
 
             {/* Sección de Imágenes de Productos */}
             <View style={styles.productsContainer}>
+            <Text style={styles.descripcion}>
+            Es una estrategia que contribuye a brindar servicios a los aprendices en formación
+            de los programas técnicos y tecnológicos de las modalidades , presencial, virtual y 
+            a distancia con el fin de promover acciones que permitan fortalecer sus competencias y 
+            habilidades socioemocionales, deportivas, artísticas, de liderazgo, culturales , brindar 
+            información sobre la promoción de la salud y prevención de la enfermedad, ofrecer apoyos 
+            socioeconómicos para el mejoramiento de su calidad de vida y la satisfacción de culminar 
+            su proceso formativo con éxito.   
+            </Text>
               <Image
-                source={require('../assets/images/Ramillete2.jpeg')} // Cambia esta ruta según el nombre de tus imágenes
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/ramoBase2.jpeg')}
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/ramoBase3.jpeg')}
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/Ramillete.jpeg')} // Cambia esta ruta según el nombre de tus imágenes
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/ramoBase4.jpeg')}
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/ramoBase1.jpeg')}
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/Ramillete1.jpeg')} // Cambia esta ruta según el nombre de tus imágenes
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/Ramobase.jpeg')}
-                style={styles.productImage}
-              />
-              <Image
-                source={require('../assets/images/Ramillete3.jpeg')}
+                source={require('../assets/images/bienestar_SENA_600.jpg')}
                 style={styles.productImage}
               />
             </View>
@@ -67,7 +44,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F8F8F8',
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -80,7 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // Added padding to avoid content being too close to edges
   },
   welcomeText: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#333',
     marginTop: 10,
@@ -92,10 +69,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
   },
+  descripcion: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+  },
+
   productImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
+    width: 240,
+    height: 150,
+    borderRadius: 5,
   },
   footer: {
     backgroundColor: '#f8f8f8',

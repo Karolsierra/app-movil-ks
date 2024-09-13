@@ -22,51 +22,22 @@ const Header = () => {
       <Link href="/">
         <View style={styles.logoContainer}>
           <Image
-            source={require('../assets/images/Logo.png')}
+            source={require('../assets/images/Loguito.jpeg')}
             style={styles.logo}
           />
-          <Text style={styles.logoText}>Distribuidora de Flores Yesid</Text>
+          <Text style={styles.logoText}>AVA</Text>
         </View>
       </Link>
 
       {/* Parte inferior con icono de hamburguesa, carrito y cuenta */}
       <View style={styles.bottomBar}>
-        <TouchableOpacity onPress={() => setMenuVisible(true)} style={styles.menuButton}>
-          <FontAwesome name="bars" size={24} color="black" />
-        </TouchableOpacity>
         <View style={styles.accountCart}>
-          <TouchableOpacity style={styles.cartButton}>
-            <FontAwesome name="shopping-cart" size={20} color="black" />
-            <Text style={styles.cartText}>0 ARTÍCULO(S) - $0</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.accountButton} onPress={() => setAccountMenuVisible(true)}>
+          <TouchableOpacity style={styles.accountButton} onPress={() => handleNavigation('/sign-in')}>
             <FontAwesome name="user" size={20} color="black" />
-            <Text style={styles.accountText}>MI CUENTA</Text>
+            <Text style={styles.accountText}>INICIAR SESIÓN</Text>
           </TouchableOpacity>
         </View>
       </View>
-
-      {/* Modal del menú */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={menuVisible}
-        onRequestClose={() => setMenuVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Pressable onPress={() => setMenuVisible(false)} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>X</Text>
-            </Pressable>
-            <ScrollView style={styles.modalMenu}>
-              <Text style={styles.menuItem} onPress={() => router.push('/special-dates')}>FECHAS ESPECIALES</Text>
-              <Text style={styles.menuItem} onPress={() => router.push('/flowers')}>FLORES</Text>
-              <Text style={styles.menuItem} onPress={() => router.push('/events')}>EVENTOS</Text>
-              <Text style={styles.menuItem} onPress={() => router.push('/about')}>QUIÉNES SOMOS</Text>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
 
       {/* Modal del menú de cuenta */}
       <Modal
@@ -81,14 +52,7 @@ const Header = () => {
               <Text style={styles.closeButtonText}>X</Text>
             </Pressable>
             <View style={styles.accountMenu}>
-              <TouchableOpacity style={styles.accountMenuItem} onPress={() => handleNavigation('/sign-up')}>
-                <Text style={styles.accountMenuText}>Registrarse</Text>
-                <FontAwesome name="user-plus" size={20} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.accountMenuItem} onPress={() => handleNavigation('/sign-in')}>
-                <Text style={styles.accountMenuText}>Iniciar sesión</Text>
-                <FontAwesome name="sign-in" size={20} color="black" />
-              </TouchableOpacity>
+              
             </View>
           </View>
         </View>
@@ -101,15 +65,16 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#ffffff',
     paddingHorizontal: 15,
-    paddingVertical: 28,
-    borderBottomWidth: 2,
-    borderBottomColor: '#ddd',
+    paddingVertical: 1,
+    borderBottomWidth: 3,
+    borderBottomColor: '#00D32E',
     width: '100%',
+    height: 80,  // Define una altura fija para evitar que el nav cambie de tamaño
+    position: 'relative', 
   },
   logoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   logo: {
     height: 80,
@@ -121,12 +86,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     marginLeft: 10,
-    flex: 1,
   },
   bottomBar: {
+    position: 'absolute',  // Para colocarla encima sin afectar el layout
+    right: 0,  // Mueve el botón al lado derecho
+    top: 25,  // Ajusta la posición verticalmente dentro del nav
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   menuButton: {
     padding: 10,
@@ -134,6 +100,8 @@ const styles = StyleSheet.create({
   accountCart: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',  // Alinea los elementos al lado derecho
+    flex: 1, 
   },
   cartButton: {
     flexDirection: 'row',
@@ -151,8 +119,8 @@ const styles = StyleSheet.create({
   },
   accountText: {
     color: 'black',
-    marginLeft: 3,
-    fontSize: 12,
+    marginLeft: 5,
+    fontSize: 18,
   },
   modalContainer: {
     flex: 1,
