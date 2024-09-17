@@ -7,10 +7,11 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Modal,
+  Alert,
   KeyboardAvoidingView,
   Platform,
-  Alert,
-  Picker
+  Keyboard
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from 'expo-router';
@@ -25,18 +26,6 @@ const documentTypes = [
   "Otro",
 ];
 
-const genderOptions = [
-  "Femenino",
-  "Masculino",
-  "Otro"
-];
-
-const roleOptions = [
-  "Administrador",
-  "Capacitador",
-  "Instructor"
-];
-
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -47,8 +36,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [gender, setGender] = useState("");
-  const [role, setRole] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const router = useRouter();
 
@@ -63,8 +51,6 @@ const Register = () => {
     if (password !== confirmPassword) return "Las contraseñas no coinciden";
     if (!validateEmail(email)) return "El correo electrónico no es válido";
     if (!/^\d+$/.test(documentNumber)) return "El número de documento debe contener solo números";
-    if (!gender) return "Género es obligatorio";
-    if (!role) return "Rol es obligatorio";
     return null;
   };
 
@@ -90,6 +76,11 @@ const Register = () => {
     }
   };
 
+  const handleDocumentTypeSelect = (type) => {
+    setDocumentType(type);
+    setModalVisible(false);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -105,18 +96,18 @@ const Register = () => {
 
               {/* Document Type */}
               <Text style={styles.label}>Tipo de Documento</Text>
-              <View style={styles.pickerBox}>
-                <Picker
-                  selectedValue={documentType}
-                  onValueChange={(itemValue) => setDocumentType(itemValue)}
-                  style={styles.picker}
-                >
-                  <Picker.Item label="Seleccione un tipo de documento" value="" />
-                  {documentTypes.map((type) => (
-                    <Picker.Item key={type} label={type} value={type} />
-                  ))}
-                </Picker>
-              </View>
+              <TouchableOpacity
+                style={styles.inputBox}
+                onPress={() => setModalVisible(true)}
+              >
+                <TextInput
+                  style={styles.input}
+                  placeholder="Seleccione un tipo de documento"
+                  value={documentType}
+                  editable={false}
+                />
+                <FontAwesome name="id-card" size={20} style={styles.icon} />
+              </TouchableOpacity>
 
               {/* Document Number */}
               <Text style={styles.label}>Número de Documento</Text>
@@ -156,35 +147,7 @@ const Register = () => {
                 <FontAwesome name="user" size={20} style={styles.icon} />
               </View>
 
-              {/* Gender */}
-              <Text style={styles.label}>Género</Text>
-              <View style={styles.pickerBox}>
-                <Picker
-                  selectedValue={gender}
-                  onValueChange={(itemValue) => setGender(itemValue)}
-                  style={styles.picker}
-                >
-                  <Picker.Item label="Seleccione su género" value="" />
-                  {genderOptions.map((option) => (
-                    <Picker.Item key={option} label={option} value={option} />
-                  ))}
-                </Picker>
-              </View>
-
-              {/* Role */}
-              <Text style={styles.label}>Rol</Text>
-              <View style={styles.pickerBox}>
-                <Picker
-                  selectedValue={role}
-                  onValueChange={(itemValue) => setRole(itemValue)}
-                  style={styles.picker}
-                >
-                  <Picker.Item label="Seleccione su rol" value="" />
-                  {roleOptions.map((option) => (
-                    <Picker.Item key={option} label={option} value={option} />
-                  ))}
-                </Picker>
-              </View>
+              
 
               {/* Email */}
               <Text style={styles.label}>Correo Electrónico</Text>
@@ -260,10 +223,39 @@ const Register = () => {
             </View>
           </View>
           <View style={styles.footer}>
-            <Footer />
+            <Footer/>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {/* Modal for Document Type */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Seleccionar Tipo de Documento</Text>
+            {documentTypes.map((type) => (
+              <TouchableOpacity
+                key={type}
+                style={styles.modalButton}
+                onPress={() => handleDocumentTypeSelect(type)}
+              >
+                <Text style={styles.modalButtonText}>{type}</Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={styles.modalCloseButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.modalCloseButtonText}>Cerrar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -271,7 +263,7 @@ const Register = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: '#fff',
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -281,92 +273,92 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    justifyContent: "center",
+    alignItems: 'center',
     padding: 20,
   },
   formBox: {
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
-    padding: 20,
+    width: '100%',
+    padding: 15,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
     elevation: 5,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 28,
+    fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: "center",
+    textAlign: 'center',
   },
   label: {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
-  },
-  pickerBox: {
-    borderColor: "#cccccc",
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15,
-  },
-  picker: {
-    height: 50,
-    width: "100%",
+    marginTop: 10,
   },
   inputBox: {
-    borderColor: "#cccccc",
-    borderWidth: 1,
-    borderRadius: 5,
+    marginBottom: 15,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  icon: {
+    color: "#000",
+  },
+  iconAfterEye: {
+    color: "#000",
+    marginLeft: 10,
   },
   input: {
     flex: 1,
     padding: 10,
-    fontSize: 16,
-  },
-  icon: {
-    marginRight: 10,
-    color: "#cccccc",
   },
   passwordContainer: {
-    borderColor: "#cccccc",
-    borderWidth: 1,
-    borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     marginBottom: 15,
   },
   passwordInput: {
     flex: 1,
     padding: 10,
-    fontSize: 16,
+    paddingRight: 40, // To ensure space for the eye icon
   },
   eyeIcon: {
-    padding: 10,
-  },
-  iconAfterEye: {
-    marginLeft: 10,
-    color: "#cccccc",
+    position: "absolute",
+    right: 37,
+    top: "50%",
+    transform: [{ translateY: -10 }],
   },
   registerButton: {
     backgroundColor: "#4CAF50",
+    padding: 15,
     borderRadius: 5,
-    paddingVertical: 15,
     alignItems: "center",
-    marginTop: 10,
+    marginVertical: 20,
   },
   registerButtonText: {
-    color: "#ffffff",
-    fontSize: 18,
+    color: "#fff",
+    fontSize: 16,
     fontWeight: "bold",
   },
   loginLink: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
   loginPrompt: {
     fontSize: 16,
+    color: "#000",
   },
   loginText: {
     fontSize: 16,
@@ -374,8 +366,50 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 5,
   },
+  
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    width: "80%",
+    padding: 20,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  modalButton: {
+    padding: 10,
+    width: "100%",
+    alignItems: "center",
+  },
+  modalButtonText: {
+    fontSize: 15.5,
+    color: "#000",
+  },
+  modalCloseButton: {
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: "#ddd",
+    borderRadius: 5,
+  },
+  modalCloseButtonText: {
+    fontSize: 15.5,
+    color: "#000",
+  },
   footer: {
-    paddingVertical: 20,
+    width: "100%",
+    backgroundColor: "#f8f8f8",
+    padding: 30,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

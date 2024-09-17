@@ -13,7 +13,7 @@ const Footer = () => {
       >
         {/* Sección Redes Sociales */}
         <View style={styles.footerSection}>
-          <Text style={styles.footerTitle}>Siguenos en nuestras redes</Text>
+          <Text style={styles.footerTitle}>Síguenos en nuestras redes</Text>
           <View style={styles.socialIcons}>
             <TouchableOpacity style={styles.socialIcon}>
               <FontAwesome name="instagram" size={24} color="black" />
@@ -26,15 +26,10 @@ const Footer = () => {
 
         {/* Sección Contáctenos */}
         <View style={styles.footerSection}>
-          <Text style={styles.footerTitle}>Acercate a nuestras oficinas</Text>
-          <Text style={styles.footerItem}><FontAwesome name="phone" size={14} color="black" /> +57 601 736 60 60</Text>
+          <Text style={styles.footerTitle}>Acércate a nuestras oficinas</Text>
           <Text style={styles.footerItem}><FontAwesome name="building" size={14} color="black" /> Calle 57 No. 8 - 69</Text>
           <Text style={styles.footerItem}><MaterialIcons name="calendar-today" size={14} color="black" /> Lunes-Viernes</Text>
           <Text style={styles.footerItem}><MaterialIcons name="access-time" size={14} color="black" /> 7:00am - 7:00pm</Text>
-        </View>
-
-        {/* Sección Descripción */}
-        <View style={styles.footerSection}>
         </View>
       </ScrollView>
       <View style={styles.footerBottom}>
@@ -50,15 +45,16 @@ const Footer = () => {
 };
 
 const styles = StyleSheet.create({
-    footer: {
-        backgroundColor: '#E1E0E2',
-        paddingVertical: 15,
-        borderTopWidth: 3,
-        borderTopColor: '#00D32E',
-        height: 330, // Asegúrate de que la altura es apropiada
-      },
+  footer: {
+    width: '100%', // Asegura que ocupe todo el ancho disponible
+    backgroundColor: '#f8f8f8',
+    borderTopWidth: 2,
+    borderTopColor: '#00D32E',
+    paddingVertical: 20, // Ajusta el padding vertical para ampliar el footer
+  },
   footerContent: {
     paddingHorizontal: 25,
+    paddingBottom: 50, // Asegura espacio suficiente para el contenido antes de los términos
   },
   footerSection: {
     marginBottom: 20,
@@ -68,9 +64,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 10,
-  },
-  highlight: {
-    color: '#f698ff',
   },
   socialIcons: {
     flexDirection: 'row',
@@ -84,15 +77,12 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 5,
   },
-  footerDescription: {
-    fontSize: 14,
-    color: '#333',
-  },
   footerBottom: {
     backgroundColor: '#e0e0e0',
     borderTopWidth: 1,
     borderTopColor: '#ccc',
     alignItems: 'center', // Centrado horizontal
+    paddingVertical: 10, // Ajusta el padding vertical para el contenido del footer
     paddingHorizontal: 20,
   },
   footerBottomText: {
@@ -101,7 +91,7 @@ const styles = StyleSheet.create({
     textAlign: 'center', // Centrado del texto
   },
   footerLink: {
-    color: '##000000',
+    color: '#000000',
     fontWeight: 'bold',
   },
 });

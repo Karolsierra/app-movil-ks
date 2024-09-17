@@ -25,7 +25,7 @@ const Header = () => {
             source={require('../assets/images/Loguito.jpeg')}
             style={styles.logo}
           />
-          <Text style={styles.logoText}>AVA</Text>
+            
         </View>
       </Link>
 
